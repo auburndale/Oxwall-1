@@ -1,11 +1,11 @@
 db:
-  image: mysql:5.6
+  image: mariadb
   volumes:
     - ./mysql/runtime:/var/lib/mysql
   env_file:
     - ./.env
 web:
-  build: ./
+  image: auburndaleoxwall
   links:
     - db
   volumes:
@@ -13,7 +13,7 @@ web:
   env_file:
     - ./.env
 cron:
-  build: ./
+  image: auburndaleoxwall
   command: cron -f
   volumes:
     - ./crontab:/etc/cron.d/oxwall

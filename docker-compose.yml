@@ -5,7 +5,7 @@ db:
   env_file:
     - ./.env
 web:
-  image: indiehosters/oxwall
+  build: ./
   links:
     - db
   volumes:
@@ -13,7 +13,7 @@ web:
   env_file:
     - ./.env
 cron:
-  image: indiehosters/oxwall 
+  build: ./
   command: cron -f
   volumes:
     - ./crontab:/etc/cron.d/oxwall

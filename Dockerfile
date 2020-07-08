@@ -1,17 +1,19 @@
-FROM php:5-apache
+FROM php:7.4-apache
 
 RUN apt-get update && apt-get install -y \
       cron \
       libjpeg-dev \
       libfreetype6-dev \
-      libpng12-dev \
+      libpng-dev \
       libssl-dev \
-      ssmtp \
       zip \
+      libzip-dev \
  && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr \
- && docker-php-ext-install gd mbstring mysql pdo_mysql zip ftp
+#RUN docker-php-ext-install mbstring
+
+RUN docker-php-ext-configure gd \
+ && docker-php-ext-install gd mysqli pdo_mysql zip ftp
 
 RUN a2enmod rewrite
 COPY apache2.conf /etc/apache2/apache2.conf
